@@ -1,13 +1,5 @@
 #!/bin/bash
-set -e
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+X86_64_SETUP_SCRIPT="${SCRIPT_DIR}/.devcontainer/x86_64/setup.sh"
 
-TOOLCHAIN_URL="https://toolchains.bootlin.com/downloads/releases/toolchains/armv7-eabihf/tarballs/armv7-eabihf--musl--stable-2018.02-2.tar.bz2"
-
-if [ ! -d toolchain ]; then
-	echo "Extracting toolchain..."
-	mkdir toolchain
-	wget -qO- "$TOOLCHAIN_URL" | tar xj --strip-components=1 -C toolchain
-fi
-
-rm -rf build && mkdir build
-cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=toolchain/share/buildroot/toolchainfile.cmake -Bbuild
+exec bash "${X86_64_SETUP_SCRIPT}"
