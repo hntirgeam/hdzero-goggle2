@@ -11,6 +11,7 @@
 #include "core/msp_displayport.h"
 #include "core/settings.h"
 #include "driver/hardware.h"
+#include "driver/beep.h"
 #include "record/record_definitions.h"
 #include "ui/page_common.h"
 #include "util/sdcard.h"
@@ -286,6 +287,7 @@ void dvr_cmd(osd_dvr_cmd_t cmd) {
             dvr_is_recording = true;
             usleep(100 * 1000);
             system_script(REC_START);
+            beep_dvr();
             dvr_recording_start = time(NULL);
             sleep(2); // wait for record process
         }
@@ -293,6 +295,7 @@ void dvr_cmd(osd_dvr_cmd_t cmd) {
         if (dvr_is_recording) {
             dvr_is_recording = false;
             system_script(REC_STOP);
+            beep_dvr();
             sleep(2); // wait for record process
         }
     }

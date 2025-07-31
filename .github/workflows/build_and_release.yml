@@ -16,6 +16,10 @@ jobs:
           bash setup.sh
           make -C build
 
+      - name: Echo Firmware Name
+        id: echo
+        run: echo "firmware_name=$(basename out/*bin)"
+
       - name: Get Firmware Name
         id: vars
         run: echo "firmware_name=$(basename out/*bin)" >> $GITHUB_ENV
